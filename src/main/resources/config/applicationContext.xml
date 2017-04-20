@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 扫描 -->
+    <context:component-scan base-package="org.seckill.service" />
+    <context:component-scan base-package="org.seckill.util" />
+
+    <!-- 引入配置文件 -->
+    <context:property-placeholder location="classpath:config/*.properties"/>
+
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="1"/>
+        <!-- 连接池最大数量 -->
+        <property name="maxActive" value="20"/>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="1"/>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="60000"/>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+    </bean>
+
+    <!-- mybatis文件配置，扫描所有mapper文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 自动扫描mapping.xml文件 -->
+        <property name="mapperLocations" value="classpath:org/seckill/dao/SuccessKilledDao.xml"/>
+    </bean>
+
+    <!-- DAO接口所在包名，Spring会自动查找其下的类,配置扫描Dao接口包，动态实现Dao接口，注入到Spring容器中 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- 给出需要扫描DAO接口包 -->
+        <property name="basePackage" value="org.seckill.dao"/>
+    </bean>
+
+    <!-- (配置事务管理)transaction manager, use JtaTransactionManager for global tx -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入数据库连接池 -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 配置基于注解的声明式事务，默认使用注解来管理事务行为 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--邮件配置-->
+    <bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="mail.ewell.cc"/>
+        <property name="port" value="25"/>
+        <property name="username" value="songxu@ewell.cc"/>
+        <property name="password" value="xu98247426"/>
+    </bean>
+
+    <!-- 引入redis属性配置文件 -->
+    <bean class="org.seckill.config.SpringRedisConfig"/>
+
+
+
+</beans>
