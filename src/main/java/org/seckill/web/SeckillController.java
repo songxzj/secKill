@@ -17,11 +17,11 @@ public class SeckillController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public SeckillModel list(){
-		String from = "songxu@ewell.cc";
+		/*String from = "songxu@ewell.cc";
 		String to = "928277484@qq.com";
 		String subject = "hello！";
 		String text = "你好！";
-		MailUtil.sendEmail(from, to, subject, text);
+		MailUtil.sendEmail(from, to, subject, text);*/
 		
 		SeckillModel seckill = seckillService.getById(1000);
 		return seckill;

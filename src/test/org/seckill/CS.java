@@ -35,9 +35,9 @@ public class CS {
     private SeckillService seckillService;
 
 
-
     @Test
     public void reduceNumber(){
+        print("---------------------------------------");
         print(seckillService.getById(1000));
     }
 
@@ -64,7 +64,8 @@ public class CS {
 
     @Test
     public void property(){
-        print(PropertyUtil.getProperty("jdbc.url"));
+        print("-----------------------------------------------");
+        print(PropertyUtil.getProperty("redis.port"));
     }
 
 

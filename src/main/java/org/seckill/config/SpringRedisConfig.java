@@ -11,17 +11,20 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import javax.transaction.TransactionScoped;
+import javax.transaction.Transactional;
+
 @Configuration
 //@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@PropertySources({
+/*@PropertySources({
         @PropertySource("classpath:config/jdbc.properties"),
         @PropertySource("classpath:config/redis.properties")
-})
+})*/
+@PropertySource("classpath:config/redis.properties")
 public class SpringRedisConfig {
 
     @Autowired
     Environment environment;
-
 
     /**
      * Jedis 配置
@@ -51,6 +54,10 @@ public class SpringRedisConfig {
         return redisTemplate;
     }
 
+    /**
+     * 序列化
+     * @return
+     */
     @Bean
     public StringRedisSerializer stringRedisSerializer(){
         return new StringRedisSerializer();
