@@ -22,8 +22,13 @@ public class SeckillController {
 		String subject = "hello！";
 		String text = "你好！";
 		MailUtil.sendEmail(from, to, subject, text);*/
-		
-		SeckillModel seckill = seckillService.getById(1000);
+
+		SeckillModel seckill = null;
+		try {
+			seckill = seckillService.getById(1000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return seckill;
 
 

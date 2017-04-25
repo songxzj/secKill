@@ -25,4 +25,8 @@ public class SeckillServiceImpl implements SeckillService {
 		
 	}
 
+	public void showSeckill(long seckillId, int num){
+		System.out.println(seckillDao.queryById(seckillId));
+	}
+
 }

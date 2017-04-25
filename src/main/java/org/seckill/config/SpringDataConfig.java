@@ -4,9 +4,11 @@ package org.seckill.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.seckill.aspectpojo.Audience;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
@@ -19,6 +21,7 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @PropertySource("classpath:config/jdbc.properties")
+@EnableAspectJAutoProxy    // 启用 AspectJ 自动代理
 public class SpringDataConfig {
 
     @Autowired
@@ -61,6 +64,11 @@ public class SpringDataConfig {
         sqlSessionFactory.setDataSource(dataSource);
 
         return sqlSessionFactory;
+    }
+
+    @Bean
+    public Audience audience(){
+        return new Audience();
     }
 
 

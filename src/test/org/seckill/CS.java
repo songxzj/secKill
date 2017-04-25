@@ -2,9 +2,11 @@ package org.seckill;
 
 import javax.annotation.Resource;
 
+import org.aspectj.lang.annotation.Aspect;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import org.seckill.dao.model.SeckillModel;
 import org.seckill.service.SeckillService;
 import org.seckill.util.MailUtil;
 import org.seckill.util.PropertyUtil;
@@ -37,8 +39,19 @@ public class CS {
 
     @Test
     public void reduceNumber(){
-        print("---------------------------------------");
-        print(seckillService.getById(1000));
+        try {
+
+            SeckillModel sec = seckillService.getById(1000);
+            print(sec.getCreateTime());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void cc(){
+        seckillService.showSeckill(1000, 1);
     }
 
     @Test
