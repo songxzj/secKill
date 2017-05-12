@@ -16,7 +16,6 @@
 
     <!-- DAO接口所在包名，Spring会自动查找其下的类,配置扫描Dao接口包，动态实现Dao接口，注入到Spring容器中 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!-- 注入sqlSessionFactory -->
        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 给出需要扫描DAO接口包 -->
         <property name="basePackage" value="org.seckill.dao"/>

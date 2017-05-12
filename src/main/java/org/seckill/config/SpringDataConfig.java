@@ -66,10 +66,5 @@ public class SpringDataConfig {
         return sqlSessionFactory;
     }
 
-    @Bean
-    public Audience audience(){
-        return new Audience();
-    }
-
 
 }

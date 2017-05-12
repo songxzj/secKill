@@ -11,6 +11,7 @@
 	<properties>
 		<spring.version>4.3.3.RELEASE</spring.version>
 		<aspectj.version>1.8.10</aspectj.version>
+		<security.version>4.2.0.RELEASE</security.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -208,6 +209,23 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
+		</dependency>
+
+		<!--spring security 相关-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${security.version}</version>
 		</dependency>
 
 		<!--redis 相关-->
